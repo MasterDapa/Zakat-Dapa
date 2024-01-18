@@ -5,97 +5,95 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <script>
-        function selectJenisZakat(jenis) {
-            var selectJenisZakat = document.getElementById("jenis_zakat");
-            selectJenisZakat.value = jenis;
-            updateJumlahHarta(jenis);
-        }
+        function updateFormElements(jenis) {
+            var modalAwalLabel = document.getElementById("modal_awal_label");
+            var modalAwalInput = document.getElementById("modal_awal");
+            var keuntunganSetahunLabel = document.getElementById("keuntungan_setahun_label");
+            var keuntunganSetahunInput = document.getElementById("keuntungan_setahun");
+            var jumlahHartaLabel = document.getElementById("jumlah_harta_label");
+            var jumlahHartaInput = document.getElementById("jumlah_harta");
 
-        function updateJumlahHarta(jenis) {
-            var inputJumlahHarta = document.getElementById("jumlah_harta");
-            var inputWajibBayar = document.getElementById("wajib_bayar");
+            // Reset visibility for all elements
+            modalAwalLabel.style.display = "none";
+            modalAwalInput.style.display = "none";
+            keuntunganSetahunLabel.style.display = "none";
+            keuntunganSetahunInput.style.display = "none";
+            jumlahHartaLabel.style.display = "block"; // Default: Show jumlah harta label
+            jumlahHartaInput.style.display = "block"; // Default: Show jumlah harta input
 
             switch (jenis) {
                 case "penghasilan":
-                    inputJumlahHarta.placeholder = "Total Penghasilan (Rp.)";
-                    break;
-                case "tabungan":
-                    inputJumlahHarta.placeholder = "Saldo Tabungan (Rp.)";
-                    break;
+                    break; // No additional changes needed for penghasilan
                 case "dagangan":
-                    inputJumlahHarta.placeholder = "Total Dagangan (Rp.)";
+                    modalAwalLabel.style.display = "block";
+                    modalAwalInput.style.display = "block";
+                    keuntunganSetahunLabel.style.display = "block";
+                    keuntunganSetahunInput.style.display = "block";
+                    jumlahHartaLabel.style.display = "none"; // Hide jumlah harta label
+                    jumlahHartaInput.style.display = "none"; // Hide jumlah harta input
                     break;
                 case "emas":
-                    inputJumlahHarta.placeholder = "Total Emas (gr)";
+                    jumlahHartaLabel.innerText = "Jumlah Emas (gr):";
                     break;
                 default:
-                    inputJumlahHarta.placeholder = "Jumlah Harta";
+                    break; // No additional changes needed for other cases
             }
+        }
 
-            // Logika untuk menentukan status "Wajib Bayar" atau "Tidak Wajib Bayar tapi Bisa Infaq"
-            var jumlahHarta = parseFloat(inputJumlahHarta.value);
-            var wajibBayar = false;
+        function formatInputAsNumber(inputId) {
+            var inputElement = document.getElementById(inputId);
+            inputElement.value = inputElement.value.replace(/\D/g, ''); // Remove non-numeric characters
+        }
 
-            if (jenis === "penghasilan" && jumlahHarta > 91545000) {
-                wajibBayar = true;
-            } else if (jenis === "tabungan" && jumlahHarta > 46750000) {
-                wajibBayar = true;
-            } else if (jenis === "dagangan") {
-                var modalAwal = parseFloat(prompt("Masukkan Modal Awal Dagangan (Rp.)"));
-                if (jumlahHarta - modalAwal > 0) {
-                    wajibBayar = true;
-                }
-            } else if (jenis === "emas" && jumlahHarta > 85) {
-                wajibBayar = true;
+        function addRpPrefix(inputId) {
+            var inputElement = document.getElementById(inputId);
+            if (inputElement.value !== "") {
+                inputElement.value = "Rp. " + inputElement.value.replace(/\D/g, '');
             }
-
-            inputWajibBayar.value = wajibBayar ? "Wajib Bayar" : "Tidak Wajib Bayar tapi Bisa Infaq";
         }
     </script>
     <title>Kalkulator Zakat</title>
 </head>
 <body>
     <div class="header">
-        <h1>Kalkulator Zakat</h1>
         <img src="logo.png" alt="Logo" class="logo">
+        <h1>Kalkulator Zakat</h1>
     </div>
 
     <div class="container">
         <h2>Pilih Jenis Zakat</h2>
         <form method="post" action="proses.php">
-            <label for="jenis_zakat">Jenis Zakat:</label>
-            <select name="jenis_zakat" id="jenis_zakat" onchange="updateJumlahHarta(this.value)">
-                <option value="penghasilan">Penghasilan (Rp.)</option>
-                <option value="tabungan">Tabungan (Rp.)</option>
-                <option value="dagangan">Dagangan (Rp.)</option>
-                <option value="emas">Emas (gr)</option>
-            </select>
 
             <!-- Gambar yang dapat diklik -->
             <div id="gambar-container">
-                <img src="uang.jpeg" alt="Penghasilan" onclick="selectJenisZakat('penghasilan')">
-                <img src="tabungan.png" alt="Tabungan" onclick="selectJenisZakat('tabungan')">
-                <img src="dagangan.png" alt="Dagangan" onclick="selectJenisZakat('dagangan')">
-                <img src="emas.jpeg" alt="Emas" onclick="selectJenisZakat('emas')">
+                <img src="uang.jpeg" alt="Penghasilan" onclick="updateFormElements('penghasilan')">
+                <img src="tabungan.png" alt="Tabungan" onclick="updateFormElements('tabungan')">
+                <img src="dagangan.png" alt="Dagangan" onclick="updateFormElements('dagangan')">
+                <img src="emas.jpeg" alt="Emas" onclick="updateFormElements('emas');">
             </div>
 
+            <!-- Additional fields for 'dagangan' -->
+            <br>
+            <label id="modal_awal_label" for="modal_awal" style="display:none">Modal Awal:</label>
+            <input type="text" name="modal_awal" id="modal_awal" style="display:none" placeholder="Modal Awal (Rp.)" oninput="formatInputAsNumber('modal_awal'); addRpPrefix('modal_awal');">
+            
+            <label id="keuntungan_setahun_label" for="keuntungan_setahun" style="display:none">Keuntungan Setahun:</label>
+            <input type="text" name="keuntungan_setahun" id="keuntungan_setahun" style="display:none" placeholder="Keuntungan Setahun (Rp.)" oninput="formatInputAsNumber('keuntungan_setahun'); addRpPrefix('keuntungan_setahun');">
+            
             <!-- Jumlah Harta -->
             <br>
-            <label for="jumlah_harta">Jumlah Harta:</label>
-            <input type="text" name="jumlah_harta" id="jumlah_harta" placeholder="Jumlah Harta">
+            <label id="jumlah_harta_label" for="jumlah_harta">Jumlah Harta (Rp.):</label>
+            <input type="text" name="jumlah_harta" id="jumlah_harta" placeholder="Jumlah Harta (Rp.)" oninput="formatInputAsNumber('jumlah_harta'); addRpPrefix('jumlah_harta');">
             
             <!-- Status Wajib Bayar -->
-            <label for="wajib_bayar">Status Wajib Bayar:</label>
-            <input type="text" name="wajib_bayar" id="wajib_bayar" readonly>
+            <br>
+            <label for="status_wajib_bayar">Status Wajib Bayar:</label>
+            <span id="status_wajib_bayar"></span>
             <br>
 
             <!-- Submit Button -->
             <input type="submit" value="Submit">
         </form>
-    </div>
-
-    <div class="footer">
-        <p>by Master Dava</p>
     </div>
 </body>
 </html>
