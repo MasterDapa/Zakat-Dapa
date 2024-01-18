@@ -10,6 +10,8 @@
             document.getElementById("savings-container").style.display = "none";
             document.getElementById("trading-container").style.display = "none";
             document.getElementById("gold-container").style.display = "none";
+            document.getElementById("jenis_zakat").value = "penghasilan";
+            updateJumlahHarta("penghasilan");
         }
 
         function showSavings() {
@@ -17,6 +19,8 @@
             document.getElementById("savings-container").style.display = "block";
             document.getElementById("trading-container").style.display = "none";
             document.getElementById("gold-container").style.display = "none";
+            document.getElementById("jenis_zakat").value = "tabungan";
+            updateJumlahHarta("tabungan");
         }
 
         function showTrading() {
@@ -24,6 +28,8 @@
             document.getElementById("savings-container").style.display = "none";
             document.getElementById("trading-container").style.display = "block";
             document.getElementById("gold-container").style.display = "none";
+            document.getElementById("jenis_zakat").value = "dagangan";
+            updateJumlahHarta("dagangan");
         }
 
         function showGold() {
@@ -31,6 +37,8 @@
             document.getElementById("savings-container").style.display = "none";
             document.getElementById("trading-container").style.display = "none";
             document.getElementById("gold-container").style.display = "block";
+            document.getElementById("jenis_zakat").value = "emas";
+            updateJumlahHarta("emas");
         }
     </script>
     <title>Kalkulator Zakat</title>
@@ -43,11 +51,16 @@
 
     <div class="container">
         <h2>Pilih Jenis Zakat</h2>
+        <form method="post" action="proses.php">
         <div id="gambar-container">
             <img src="uang.jpeg" alt="Penghasilan" onclick="showIncome()">
+            <span>Penghasilan</span>
             <img src="tabungan.png" alt="Tabungan" onclick="showSavings()">
+            <span>Tabungan</span>
             <img src="dagangan.png" alt="Dagangan" onclick="showTrading()">
+            <span>Dagangan</span>
             <img src="emas.jpeg" alt="Emas" onclick="showGold()">
+            <span>Emas</span>
         </div>
 
         <!-- Penghasilan -->
@@ -59,28 +72,28 @@
             </select>
             <br>
             <label for="income-amount">Jumlah Penghasilan:</label>
-            <input type="text" name="income-amount" id="income-amount" placeholder="Masukkan Angka Nominal" oninput="formatCurrency(this)">
+            <input type="text" name="income-amount" id="income-amount" placeholder="Masukkan Jumlah Penghasilan Anda" oninput="formatCurrency(this)">
         </div>
 
         <!-- Tabungan -->
         <div id="savings-container" style="display: none;">
             <label for="savings-amount">Saldo Anda:</label>
-            <input type="text" name="savings-amount" id="savings-amount" placeholder="Masukkan Angka Nominal" oninput="formatCurrency(this)">
+            <input type="text" name="savings-amount" id="savings-amount" placeholder="Masukkan Jumlah Tabungan Anda" oninput="formatCurrency(this)">
         </div>
 
         <!-- Dagangan -->
         <div id="trading-container" style="display: none;">
             <label for="initial-capital">Modal Awal:</label>
-            <input type="text" name="initial-capital" id="initial-capital" placeholder="Masukkan Angka Nominal" oninput="formatCurrency(this)">
+            <input type="text" name="initial-capital" id="initial-capital" placeholder="Masukkan Jumah Modal Anda" oninput="formatCurrency(this)">
             <br>
             <label for="annual-profit">Keuntungan Setahun:</label>
-            <input type="text" name="annual-profit" id="annual-profit" placeholder="Masukkan Angka Nominal" oninput="formatCurrency(this)">
+            <input type="text" name="annual-profit" id="annual-profit" placeholder="Masukkan Keuntungan Anda" oninput="formatCurrency(this)">
         </div>
 
         <!-- Emas -->
         <div id="gold-container" style="display: none;">
             <label for="gold-amount">Jumlah Emas:</label>
-            <input type="text" name="gold-amount" id="gold-amount" placeholder="Masukkan Angka Nominal">
+            <input type="text" name="gold-amount" id="gold-amount" placeholder="Masukkan Total Berat Emas">
         </div>
 
         <!-- Submit Button -->
