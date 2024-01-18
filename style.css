@@ -1,0 +1,74 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f8f9fa;
+    color: #495057;
+    margin: 20px;
+}
+
+.container {
+    max-width: 400px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+h2 {
+    color: #007bff;
+}
+
+p {
+    margin-bottom: 10px;
+}
+
+a {
+    text-decoration: none;
+    color: #007bff;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Nota */
+.container p {
+    font-weight: bold;
+    color: #007bff;
+}
+
+.container a {
+    margin-top: 10px;
+}
+
+/* Gambar yang dapat diklik di indeks.php */
+#gambar-container {
+    margin: 20px 0;
+}
+
+#gambar-container img {
+    width: 70px;
+    margin: 0 10px;
+    cursor: pointer;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    transition: transform 0.3s ease-in-out, border-color 0.3s ease-in-out;
+}
+
+#gambar-container img:hover {
+    transform: scale(1.1);
+    border-color: #007bff;
+}
+
+/* Tombol di indeks.php dan proses.php */
+input[type="submit"] {
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+input[type="submit"]:hover {
+    background-color: #0056b3;
+}
