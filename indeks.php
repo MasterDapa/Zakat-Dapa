@@ -65,7 +65,6 @@
                     inputJumlahHarta.placeholder = "Jumlah Harta";
             }
 
-            // Logika untuk menentukan status "Wajib Bayar" atau "Tidak Wajib Bayar tapi Bisa Infaq"
             var jumlahHarta = parseFloat(inputJumlahHarta.value);
             var wajibBayar = false;
 
