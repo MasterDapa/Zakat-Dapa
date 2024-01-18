@@ -4,49 +4,93 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <title>Proses Zakat</title>
+    <title>Nota Zakat</title>
 </head>
 <body>
     <div class="container">
-        <h2>Proses Zakat</h2>
-
         <?php
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Pastikan nilai $_POST["jenis_zakat"] dan $_POST["jumlah_harta"] ada sebelum digunakan
-    $jenisZakat = isset($_POST["jenis_zakat"]) ? $_POST["jenis_zakat"] : "";
-    $jumlahHarta = isset($_POST["jumlah_harta"]) ? $_POST["jumlah_harta"] : "";
+        // Memeriksa apakah data POST terkirim dan elemen yang dibutuhkan diatur
+        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["jenis_zakat"])) {
+            // Memeriksa jenis zakat yang dipilih
+            switch ($_POST["jenis_zakat"]) {
+                case "penghasilan":
+                    // Ambil nilai Jumlah Penghasilan dari POST
+                    $jumlah_harta = isset($_POST["income-amount"]) ? $_POST["income-amount"] : 0;
 
-    // Menghitung jumlah sumbangan dan menyimpan ke variable
-    $jumlahSumbangan = 0;
-    switch ($jenisZakat) {
-        case "penghasilan":
-        case "tabungan":
-        case "emas":
-            $jumlahSumbangan = floatval($jumlahHarta) * 0.025;
-            break;
-        case "dagangan":
-            $modalAwal = floatval($_POST["initial-capital"]);
-            $keuntunganSetahun = floatval($_POST["annual-profit"]);
-            $jumlahSumbangan = ($keuntunganSetahun - $modalAwal) * 0.025;
-            break;
-    }
+                    // Hitung jumlah sumbangan (2,5% dari Jumlah Penghasilan)
+                    $jumlah_sumbangan = $jumlah_harta * 0.025;
 
-    // Jika jenis zakat adalah emas, tambahkan informasi tambahan
-    if ($jenisZakat === "emas") {
-        $totalSumbangan = $jumlahSumbangan * 1073000;
-        echo "<p>Jumlah Sumbangan (Rp.): Rp. " . number_format($totalSumbangan, 0, ',', '.') . "</p>";
-    }
+                    // Tampilkan nota sesuai dengan jenis zakat
+                    echo "<h2>Nota</h2>";
+                    echo "<p>Jenis Zakat: Penghasilan</p>";
+                    echo "<p>Jumlah Harta: $jumlah_harta</p>";
+                    echo "<p>Jumlah Sumbangan: $jumlah_sumbangan</p>";
+                    echo "<p>Ucapan Terima Kasih</p>";
+                    break;
+                
+                case "tabungan":
+                    // Ambil nilai Saldo Anda dari POST
+                    $jumlah_harta = isset($_POST["savings-amount"]) ? $_POST["savings-amount"] : 0;
 
-    // Menampilkan informasi pada nota
-    echo "<p>Jenis Zakat: $jenisZakat</p>";
-    echo "<p>Jumlah Harta: $jumlahHarta</p>";
-    echo "<p>Jumlah Sumbangan: Rp. " . number_format($jumlahSumbangan, 0, ',', '.') . "</p>";
+                    // Hitung jumlah sumbangan (2,5% dari Saldo Anda)
+                    $jumlah_sumbangan = $jumlah_harta * 0.025;
 
-    // Tampilkan ucapan terima kasih dan tombol kembali ke Halaman Utama
-    echo "<p>Terima kasih atas sumbangan zakat Anda.</p>";
-    echo '<a href="indeks.php">Kembali ke Halaman Utama</a>';
-}
-?>
+                    // Tampilkan nota sesuai dengan jenis zakat
+                    echo "<h2>Nota</h2>";
+                    echo "<p>Jenis Zakat: Tabungan</p>";
+                    echo "<p>Jumlah Harta: $jumlah_harta</p>";
+                    echo "<p>Jumlah Sumbangan: $jumlah_sumbangan</p>";
+                    echo "<p>Ucapan Terima Kasih</p>";
+                    break;
+
+                case "dagangan":
+                    // Ambil nilai Modal Awal dan Keuntungan Setahun dari POST
+                    $modal_awal = isset($_POST["initial-capital"]) ? $_POST["initial-capital"] : 0;
+                    $keuntungan_setahun = isset($_POST["annual-profit"]) ? $_POST["annual-profit"] : 0;
+
+                    // Hitung jumlah sumbangan (2,5% dari Keuntungan Setahun dikurangi Modal Awal)
+                    $jumlah_sumbangan = ($keuntungan_setahun - $modal_awal) * 0.025;
+
+                    // Tampilkan nota sesuai dengan jenis zakat
+                    echo "<h2>Nota</h2>";
+                    echo "<p>Jenis Zakat: Dagangan</p>";
+                    echo "<p>Modal Awal: $modal_awal</p>";
+                    echo "<p>Jumlah Harta: $keuntungan_setahun</p>";
+                    echo "<p>Jumlah Sumbangan: $jumlah_sumbangan</p>";
+                    echo "<p>Ucapan Terima Kasih</p>";
+                    break;
+
+                case "emas":
+                    // Ambil nilai Jumlah Emas dari POST
+                    $jumlah_emas = isset($_POST["gold-amount"]) ? $_POST["gold-amount"] : 0;
+
+                    // Hitung jumlah sumbangan (2,5% dari Jumlah Emas)
+                    $jumlah_sumbangan = $jumlah_emas * 0.025;
+
+                    // Hitung jumlah sumbangan dalam Rupiah (Rp. 1.104.000 per gram)
+                    $jumlah_sumbangan_rp = $jumlah_sumbangan * 1104000;
+
+                    // Tampilkan nota sesuai dengan jenis zakat
+                    echo "<h2>Nota</h2>";
+                    echo "<p>Jenis Zakat: Emas</p>";
+                    echo "<p>Jumlah Harta: $jumlah_emas</p>";
+                    echo "<p>Jumlah Sumbangan: $jumlah_sumbangan</p>";
+                    echo "<p>Jumlah Sumbangan(Rp.): $jumlah_sumbangan_rp</p>";
+                    echo "<p>Ucapan Terima Kasih</p>";
+                    break;
+                
+                default:
+                    // Tampilkan pesan kesalahan jika jenis zakat tidak dikenali
+                    echo "<p>Error: Jenis Zakat tidak valid</p>";
+            }
+
+            // Tambahkan tombol kembali ke Indeks
+            echo "<a href='indeks.php'>Kembali ke Indeks</a>";
+        } else {
+            // Tampilkan pesan jika tidak ada data POST atau data yang dibutuhkan tidak diatur
+            echo "<p>Data tidak lengkap</p>";
+        }
+        ?>
     </div>
 </body>
 </html>

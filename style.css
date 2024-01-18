@@ -7,13 +7,13 @@ body {
 }
 
 .container {
-    max-width: 800px; /* Sesuaikan jika diperlukan */
+    max-width: 800px;
     margin: 20px auto;
     padding: 20px;
     background-color: #fff;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
+    text-align: left; /* Align text to the left */
 }
 
 h2 {
@@ -40,7 +40,7 @@ a:hover {
 }
 
 .header .logo {
-    margin-right: auto;
+    margin-left: auto; /* Move the logo to the right */
 }
 
 .header h1 {
@@ -51,11 +51,14 @@ a:hover {
 /* Gambar yang dapat diklik di indeks.php */
 #gambar-container {
     margin: 20px 0;
+    display: flex;
+    flex-wrap: wrap; /* Allow items to wrap to the next line */
+    justify-content: space-evenly; /* Evenly distribute items horizontally */
 }
 
 #gambar-container img {
     width: 70px;
-    margin: 0 10px;
+    margin: 10px; /* Add margin to create space between images */
     cursor: pointer;
     border: 2px solid transparent;
     border-radius: 8px;
@@ -76,6 +79,7 @@ input[type="submit"] {
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
+    margin-top: 20px;
 }
 
 input[type="submit"]:hover {
