@@ -7,7 +7,7 @@ body {
 }
 
 .container {
-    max-width: 800px; /* Adjust as needed */
+    max-width: 800px; /* Sesuaikan jika diperlukan */
     margin: 20px auto;
     padding: 20px;
     background-color: #fff;
@@ -73,9 +73,6 @@ input[type="submit"] {
     color: #fff;
     cursor: pointer;
     transition: background-color 0.3s ease-in-out;
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
@@ -83,4 +80,12 @@ input[type="submit"] {
 
 input[type="submit"]:hover {
     background-color: #0056b3;
+}
+
+/* Tambahan styling untuk submit button di proses.php */
+body.proses input[type="submit"] {
+    position: static;
+    margin-top: 20px; /* Sesuaikan dengan margin yang diinginkan */
+    right: auto;
+    bottom: auto;
 }

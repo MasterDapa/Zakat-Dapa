@@ -5,95 +5,97 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <script>
-        function updateFormElements(jenis) {
-            var modalAwalLabel = document.getElementById("modal_awal_label");
-            var modalAwalInput = document.getElementById("modal_awal");
-            var keuntunganSetahunLabel = document.getElementById("keuntungan_setahun_label");
-            var keuntunganSetahunInput = document.getElementById("keuntungan_setahun");
-            var jumlahHartaLabel = document.getElementById("jumlah_harta_label");
-            var jumlahHartaInput = document.getElementById("jumlah_harta");
-
-            // Reset visibility for all elements
-            modalAwalLabel.style.display = "none";
-            modalAwalInput.style.display = "none";
-            keuntunganSetahunLabel.style.display = "none";
-            keuntunganSetahunInput.style.display = "none";
-            jumlahHartaLabel.style.display = "block"; // Default: Show jumlah harta label
-            jumlahHartaInput.style.display = "block"; // Default: Show jumlah harta input
-
-            switch (jenis) {
-                case "penghasilan":
-                    break; // No additional changes needed for penghasilan
-                case "dagangan":
-                    modalAwalLabel.style.display = "block";
-                    modalAwalInput.style.display = "block";
-                    keuntunganSetahunLabel.style.display = "block";
-                    keuntunganSetahunInput.style.display = "block";
-                    jumlahHartaLabel.style.display = "none"; // Hide jumlah harta label
-                    jumlahHartaInput.style.display = "none"; // Hide jumlah harta input
-                    break;
-                case "emas":
-                    jumlahHartaLabel.innerText = "Jumlah Emas (gr):";
-                    break;
-                default:
-                    break; // No additional changes needed for other cases
-            }
+        function showIncome() {
+            document.getElementById("income-container").style.display = "block";
+            document.getElementById("savings-container").style.display = "none";
+            document.getElementById("trading-container").style.display = "none";
+            document.getElementById("gold-container").style.display = "none";
         }
 
-        function formatInputAsNumber(inputId) {
-            var inputElement = document.getElementById(inputId);
-            inputElement.value = inputElement.value.replace(/\D/g, ''); // Remove non-numeric characters
+        function showSavings() {
+            document.getElementById("income-container").style.display = "none";
+            document.getElementById("savings-container").style.display = "block";
+            document.getElementById("trading-container").style.display = "none";
+            document.getElementById("gold-container").style.display = "none";
         }
 
-        function addRpPrefix(inputId) {
-            var inputElement = document.getElementById(inputId);
-            if (inputElement.value !== "") {
-                inputElement.value = "Rp. " + inputElement.value.replace(/\D/g, '');
-            }
+        function showTrading() {
+            document.getElementById("income-container").style.display = "none";
+            document.getElementById("savings-container").style.display = "none";
+            document.getElementById("trading-container").style.display = "block";
+            document.getElementById("gold-container").style.display = "none";
+        }
+
+        function showGold() {
+            document.getElementById("income-container").style.display = "none";
+            document.getElementById("savings-container").style.display = "none";
+            document.getElementById("trading-container").style.display = "none";
+            document.getElementById("gold-container").style.display = "block";
         }
     </script>
     <title>Kalkulator Zakat</title>
 </head>
-<body>
+<body onload="showIncome()">
     <div class="header">
-        <img src="logo.png" alt="Logo" class="logo">
         <h1>Kalkulator Zakat</h1>
+        <img src="logo.png" alt="Logo" class="logo">
     </div>
 
     <div class="container">
         <h2>Pilih Jenis Zakat</h2>
-        <form method="post" action="proses.php">
+        <div id="gambar-container">
+            <img src="uang.jpeg" alt="Penghasilan" onclick="showIncome()">
+            <img src="tabungan.png" alt="Tabungan" onclick="showSavings()">
+            <img src="dagangan.png" alt="Dagangan" onclick="showTrading()">
+            <img src="emas.jpeg" alt="Emas" onclick="showGold()">
+        </div>
 
-            <!-- Gambar yang dapat diklik -->
-            <div id="gambar-container">
-                <img src="uang.jpeg" alt="Penghasilan" onclick="updateFormElements('penghasilan')">
-                <img src="tabungan.png" alt="Tabungan" onclick="updateFormElements('tabungan')">
-                <img src="dagangan.png" alt="Dagangan" onclick="updateFormElements('dagangan')">
-                <img src="emas.jpeg" alt="Emas" onclick="updateFormElements('emas');">
-            </div>
+        <!-- Penghasilan -->
+        <div id="income-container">
+            <label for="income-type">Pilih Periode:</label>
+            <select name="income-type" id="income-type">
+                <option value="monthly">Per Bulan</option>
+                <option value="yearly">Per Tahun</option>
+            </select>
+            <br>
+            <label for="income-amount">Jumlah Penghasilan:</label>
+            <input type="text" name="income-amount" id="income-amount" placeholder="Masukkan Angka Nominal" oninput="formatCurrency(this)">
+        </div>
 
-            <!-- Additional fields for 'dagangan' -->
-            <br>
-            <label id="modal_awal_label" for="modal_awal" style="display:none">Modal Awal:</label>
-            <input type="text" name="modal_awal" id="modal_awal" style="display:none" placeholder="Modal Awal (Rp.)" oninput="formatInputAsNumber('modal_awal'); addRpPrefix('modal_awal');">
-            
-            <label id="keuntungan_setahun_label" for="keuntungan_setahun" style="display:none">Keuntungan Setahun:</label>
-            <input type="text" name="keuntungan_setahun" id="keuntungan_setahun" style="display:none" placeholder="Keuntungan Setahun (Rp.)" oninput="formatInputAsNumber('keuntungan_setahun'); addRpPrefix('keuntungan_setahun');">
-            
-            <!-- Jumlah Harta -->
-            <br>
-            <label id="jumlah_harta_label" for="jumlah_harta">Jumlah Harta (Rp.):</label>
-            <input type="text" name="jumlah_harta" id="jumlah_harta" placeholder="Jumlah Harta (Rp.)" oninput="formatInputAsNumber('jumlah_harta'); addRpPrefix('jumlah_harta');">
-            
-            <!-- Status Wajib Bayar -->
-            <br>
-            <label for="status_wajib_bayar">Status Wajib Bayar:</label>
-            <span id="status_wajib_bayar"></span>
-            <br>
+        <!-- Tabungan -->
+        <div id="savings-container" style="display: none;">
+            <label for="savings-amount">Saldo Anda:</label>
+            <input type="text" name="savings-amount" id="savings-amount" placeholder="Masukkan Angka Nominal" oninput="formatCurrency(this)">
+        </div>
 
-            <!-- Submit Button -->
-            <input type="submit" value="Submit">
-        </form>
+        <!-- Dagangan -->
+        <div id="trading-container" style="display: none;">
+            <label for="initial-capital">Modal Awal:</label>
+            <input type="text" name="initial-capital" id="initial-capital" placeholder="Masukkan Angka Nominal" oninput="formatCurrency(this)">
+            <br>
+            <label for="annual-profit">Keuntungan Setahun:</label>
+            <input type="text" name="annual-profit" id="annual-profit" placeholder="Masukkan Angka Nominal" oninput="formatCurrency(this)">
+        </div>
+
+        <!-- Emas -->
+        <div id="gold-container" style="display: none;">
+            <label for="gold-amount">Jumlah Emas:</label>
+            <input type="text" name="gold-amount" id="gold-amount" placeholder="Masukkan Angka Nominal">
+        </div>
+
+        <!-- Submit Button -->
+        <input type="submit" value="Submit">
     </div>
+
+    <script>
+        function formatCurrency(element) {
+            // Format angka dengan menambahkan "Rp." di depannya
+            var value = element.value.replace(/[^\d]/g, '');
+            if (value.length > 0) {
+                value = "Rp. " + Number(value).toLocaleString();
+            }
+            element.value = value;
+        }
+    </script>
 </body>
 </html>
