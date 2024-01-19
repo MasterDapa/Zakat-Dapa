@@ -65,6 +65,7 @@
                     inputJumlahHarta.placeholder = "Jumlah Harta";
             }
 
+            // Logika untuk menentukan status "Wajib Bayar" atau "Tidak Wajib Bayar tapi Bisa Infaq"
             var jumlahHarta = parseFloat(inputJumlahHarta.value);
             var wajibBayar = false;
 
@@ -82,6 +83,19 @@
             }
 
             inputWajibBayar.value = wajibBayar ? "Wajib Bayar" : "Tidak Wajib Bayar tapi Bisa Infaq";
+        }
+
+        function formatCurrency(element) {
+            // Format angka dengan menambahkan "Rp." di depannya
+            var value = element.value.replace(/[^\d]/g, '');
+            if (value.length > 0) {
+                value = "Rp. " + Number(value).toLocaleString();
+            }
+            element.value = value;
+
+            // Update hidden input field for jumlah_harta
+            var inputJumlahHarta = document.getElementById("jumlah_harta");
+            inputJumlahHarta.value = Number(value.replace(/[^\d]/g, ''));
         }
     </script>
     <title>Kalkulator Zakat</title>
@@ -148,20 +162,5 @@
             <input type="submit" value="Submit">
         </form>
     </div>
-
-    <script>
-        function formatCurrency(element) {
-            // Format angka dengan menambahkan "Rp." di depannya
-            var value = element.value.replace(/[^\d]/g, '');
-            if (value.length > 0) {
-                value = "Rp. " + Number(value).toLocaleString();
-            }
-            element.value = value;
-
-            // Update hidden input field for jumlah_harta
-            var inputJumlahHarta = document.getElementById("jumlah_harta");
-            inputJumlahHarta.value = Number(value.replace(/[^\d]/g, ''));
-        }
-    </script>
 </body>
 </html>
