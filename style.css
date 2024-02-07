@@ -1,95 +1,71 @@
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f8f9fa;
-    color: #495057;
-    margin: 0;
-    padding: 0;
-}
-
-.container {
-    max-width: 800px;
-    margin: 20px auto;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    text-align: left; /* Align text to the left */
-}
-
-h2 {
-    color: #007bff;
-}
-
-a {
-    text-decoration: none;
-    color: #007bff;
-}
-
-a:hover {
-    text-decoration: underline;
-}
-
-/* Header styling */
+/* Style untuk header */
 .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #007bff;
-    padding: 10px;
-    border-bottom: 2px solid #fff;
+    text-align: center;
+    padding: 20px;
+    background-color: #f2f2f2;
 }
 
-.header .logo {
-    margin-left: auto; /* Move the logo to the right */
+.logo {
+    width: 100px; /* Atur ukuran logo sesuai kebutuhan */
+    height: auto;
 }
 
-.header h1 {
-    margin: 0;
-    color: #fff;
+/* Style untuk container */
+.container {
+    max-width: 800px; /* Atur lebar maksimum sesuai kebutuhan */
+    margin: 0 auto;
+    padding: 20px;
 }
 
-/* Gambar yang dapat diklik di indeks.php */
+/* Style untuk gambar-container */
 #gambar-container {
-    margin: 20px 0;
-    display: flex;
-    flex-wrap: wrap; /* Allow items to wrap to the next line */
-    justify-content: space-evenly; /* Evenly distribute items horizontally */
+    text-align: center;
+    margin-bottom: 20px;
 }
 
 #gambar-container img {
-    width: 70px;
-    margin: 10px; /* Add margin to create space between images */
+    width: 50px; /* Atur ukuran gambar sesuai kebutuhan */
+    margin: 0 10px;
     cursor: pointer;
-    border: 2px solid transparent;
-    border-radius: 8px;
-    transition: transform 0.3s ease-in-out, border-color 0.3s ease-in-out;
 }
 
-#gambar-container img:hover {
-    transform: scale(1.1);
-    border-color: #007bff;
+/* Style untuk form */
+form {
+    text-align: left;
 }
 
-/* Tombol di indeks.php dan proses.php */
+/* Style untuk input */
+input[type="text"],
+select {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    box-sizing: border-box;
+}
+
+/* Style untuk submit button */
 input[type="submit"] {
-    background-color: #007bff;
-    color: #fff;
-    cursor: pointer;
-    transition: background-color 0.3s ease-in-out;
-    padding: 10px 20px;
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    background-color: #4CAF50;
+    color: white;
     border: none;
-    border-radius: 5px;
-    margin-top: 20px;
+    cursor: pointer;
 }
 
-input[type="submit"]:hover {
-    background-color: #0056b3;
+/* Style untuk penghasilan-container, tabungan-container, dagangan-container, dan emas-container */
+#income-container,
+#savings-container,
+#trading-container,
+#gold-container {
+    display: none;
 }
 
-/* Tambahan styling untuk submit button di proses.php */
-body.proses input[type="submit"] {
-    position: static;
-    margin-top: 20px; /* Sesuaikan dengan margin yang diinginkan */
-    right: auto;
-    bottom: auto;
+/* Style untuk menampilkan container yang aktif */
+#income-container[style*="display: block"],
+#savings-container[style*="display: block"],
+#trading-container[style*="display: block"],
+#gold-container[style*="display: block"] {
+    display: block;
 }
