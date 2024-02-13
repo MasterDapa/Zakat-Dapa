@@ -1,11 +1,18 @@
 <?php
-class NotaZakat {
-    public function generateNota($jenisZakat, $jumlahHarta) {
+class NotaZakat
+{
+    public function generateNota($jenisZakat, $jumlahHarta)
+    {
+        function hapusKarakterNonDigit($string)
+        {
+            return trim(preg_replace("/[^0-9]/", "", $string));
+        }
+
         $result = [];
 
         switch ($jenisZakat) {
             case "penghasilan":
-                $jumlahSumbangan = $jumlahHarta * 0.025;
+                $jumlahSumbangan = (int) hapusKarakterNonDigit($_POST["income-amount"]) * 0.025;
                 $result = [
                     "Jenis Zakat" => "Penghasilan",
                     "Jumlah Harta" => $jumlahHarta,
@@ -15,7 +22,7 @@ class NotaZakat {
                 break;
 
             case "tabungan":
-                $jumlahSumbangan = $jumlahHarta * 0.025;
+                $jumlahSumbangan = (int) hapusKarakterNonDigit($_POST["savings-amount"]) * 0.025;
                 $result = [
                     "Jenis Zakat" => "Dagangan",
                     "Jumlah Harta" => $jumlahHarta,
@@ -25,8 +32,8 @@ class NotaZakat {
                 break;
 
             case "dagangan":
-                $modalAwal = $_POST["modal_awal"];
-                $keuntunganSetahun = $_POST["keuntungan_setahun"];
+                $modalAwal = (int) hapusKarakterNonDigit($_POST["initial-capital"]);
+                $keuntunganSetahun = (int) hapusKarakterNonDigit($_POST["annual-profit"]);
                 $jumlahHarta = $keuntunganSetahun - $modalAwal;
                 $jumlahSumbangan = $jumlahHarta * 0.025;
                 $result = [
@@ -39,7 +46,7 @@ class NotaZakat {
                 break;
 
             case "emas":
-                $jumlahSumbangan = $jumlahHarta * 0.025;
+                $jumlahSumbangan = (int) hapusKarakterNonDigit($_POST["gold-amount"]) * 0.025;
                 $jumlahSumbanganRp = $jumlahSumbangan * 1104000;
                 $result = [
                     "Jenis Zakat" => "Emas",
@@ -66,4 +73,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Tampilkan nota atau simpan di database sesuai kebutuhan
     print_r($nota);
 }
-?>
