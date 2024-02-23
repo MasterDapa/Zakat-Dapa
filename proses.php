@@ -61,15 +61,3 @@ class NotaZakat
         return $result;
     }
 }
-
-// Proses form
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $jenisZakat = $_POST["jenis_zakat"];
-    $jumlahHarta = $_POST["jumlah_harta"];
-
-    $notaGenerator = new NotaZakat();
-    $nota = $notaGenerator->generateNota($jenisZakat, $jumlahHarta);
-
-    // Tampilkan nota atau simpan di database sesuai kebutuhan
-    print_r($nota);
-}
