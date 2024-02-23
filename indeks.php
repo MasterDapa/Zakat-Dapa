@@ -64,25 +64,6 @@
                 default:
                     inputJumlahHarta.placeholder = "Jumlah Harta";
             }
-
-            // Logika untuk menentukan status "Wajib Bayar" atau "Tidak Wajib Bayar tapi Bisa Infaq"
-            var jumlahHarta = parseFloat(inputJumlahHarta.value);
-            var wajibBayar = false;
-
-            if (jenis === "penghasilan" && jumlahHarta > 91545000) {
-                wajibBayar = true;
-            } else if (jenis === "tabungan" && jumlahHarta > 46750000) {
-                wajibBayar = true;
-            } else if (jenis === "dagangan") {
-                var modalAwal = parseFloat(prompt("Masukkan Modal Awal Dagangan (Rp.)"));
-                if (jumlahHarta - modalAwal > 0) {
-                    wajibBayar = true;
-                }
-            } else if (jenis === "emas" && jumlahHarta > 85) {
-                wajibBayar = true;
-            }
-
-            inputWajibBayar.value = wajibBayar ? "Wajib Bayar" : "Tidak Wajib Bayar tapi Bisa Infaq";
         }
 
         function formatCurrency(element) {
@@ -108,15 +89,15 @@
 
     <div class="container">
         <h2>Pilih Jenis Zakat</h2>
-        <form method="post" action="proses.php">
+        <form method="post" action="">
             <div id="gambar-container">
-                <img src="uang.jpeg" alt="Penghasilan" onclick="showIncome()">
+                <img src="uang.png" alt="Penghasilan" onclick="showIncome()">
                 <span>Penghasilan</span>
                 <img src="tabungan.png" alt="Tabungan" onclick="showSavings()">
                 <span>Tabungan</span>
                 <img src="dagangan.png" alt="Dagangan" onclick="showTrading()">
                 <span>Dagangan</span>
-                <img src="emas.jpeg" alt="Emas" onclick="showGold()">
+                <img src="emas.png" alt="Emas" onclick="showGold()">
                 <span>Emas</span>
             </div>
 
@@ -163,4 +144,18 @@
         </form>
     </div>
 </body>
+<?php
+include "proses.php";
+// Proses form
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $jenisZakat = $_POST["jenis_zakat"];
+    $jumlahHarta = $_POST["jumlah_harta"];
+
+    $notaGenerator = new NotaZakat();
+    $nota = $notaGenerator->generateNota($jenisZakat, $jumlahHarta);
+
+    // Tampilkan nota atau simpan di database sesuai kebutuhan
+    ($nota);
+}
+?>
 </html>
