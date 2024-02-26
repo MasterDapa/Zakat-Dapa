@@ -1,5 +1,18 @@
+<?php
+include "proses.php";
+// Proses form
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $jenisZakat = $_POST["jenis_zakat"];
+    $jumlahHarta = $_POST["jumlah_harta"];
+
+    $notaGenerator = new NotaZakat();
+    $nota = $notaGenerator->generateNota($jenisZakat, $jumlahHarta);
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -21,6 +34,7 @@
             document.getElementById("gold-container").style.display = "none";
             document.getElementById("jenis_zakat").value = "tabungan";
             updateJumlahHarta("tabungan");
+
         }
 
         function showTrading() {
@@ -81,6 +95,7 @@
     </script>
     <title>Kalkulator Zakat</title>
 </head>
+
 <body onload="showIncome()">
     <div class="header">
         <h1>Kalkulator Zakat</h1>
@@ -140,22 +155,33 @@
             <input type="hidden" name="wajib_bayar" id="wajib_bayar">
 
             <!-- Submit Button -->
-            <input type="submit" value="Submit">
+            <input type="submit" value="Submit" name="Submit">
         </form>
+
+        <?php if (isset($_POST["Submit"])) : ?>
+            <div class="nota">
+                <h1>Nota Zakat</h1>
+                <?php if ($nota["Jenis Zakat"] == "Dagangan") : ?>
+                    <p class="modal_awal">Modal Awal : <?= $nota["Modal Awal"] ?></p>
+                    <p class="jml_harta">Jumlah Harta : <?= $nota["Jumlah Harta"] ?></p>
+                    <p class="jml_sumbangan">Jumlah Sumbangan : <?= $nota["Jumlah Sumbangan"] ?></p>
+                    <p class="terimakasih"><?= $nota["Ucapan Terimakasih"] ?></p>
+                    <a href="">Clear</a>
+                <?php elseif ($nota["Jenis Zakat"] == "Emas") : ?>
+                    <p class="jml_harta">Jumlah Harta : <?= $nota["Jumlah Harta"] ?></p>
+                    <p class="jml_sumbangan_gr">Jumlah Sumbangan (gr) : <?= $nota["Jumlah Sumbangan (gr)"] ?></p>
+                    <p class="jml_sumbangan_gr">Jumlah Sumbangan (Rp) : <?= $nota["Jumlah Sumbangan (Rp.)"] ?></p>
+                    <p class="terimakasih"><?= $nota["Ucapan Terimakasih"] ?></p>
+                    <a href="">Clear</a>
+                <?php else : ?>
+                    <p class="jml_harta">Jumlah Harta : <?= $nota["Jumlah Harta"] ?></p>
+                    <p class="jml_sumbangan">Jumlah Sumbangan : <?= $nota["Jumlah Sumbangan"] ?></p>
+                    <p class="terimakasih"><?= $nota["Ucapan Terimakasih"] ?></p>
+                    <a href="">Clear</a>
+                <?php endif; ?>
+            </div>
+        <?php endif; ?>
     </div>
 </body>
-<?php
-include "proses.php";
-// Proses form
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $jenisZakat = $_POST["jenis_zakat"];
-    $jumlahHarta = $_POST["jumlah_harta"];
 
-    $notaGenerator = new NotaZakat();
-    $nota = $notaGenerator->generateNota($jenisZakat, $jumlahHarta);
-
-    // Tampilkan nota atau simpan di database sesuai kebutuhan
-    ($nota);
-}
-?>
 </html>
