@@ -24,7 +24,7 @@ class NotaZakat
             case "tabungan":
                 $jumlahSumbangan = (int) hapusKarakterNonDigit($_POST["savings-amount"]) * 0.025;
                 $result = [
-                    "Jenis Zakat" => "Dagangan",
+                    "Jenis Zakat" => "Tabungan",
                     "Jumlah Harta" => $jumlahHarta,
                     "Jumlah Sumbangan" => $jumlahSumbangan,
                     "Ucapan Terimakasih" => "Terima kasih atas sumbangan Zakat Tabungan Anda.",

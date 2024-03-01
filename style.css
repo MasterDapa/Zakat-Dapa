@@ -22,24 +22,29 @@ body {
 }
 
 .header {
-    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     margin-bottom: 20px;
-    animation: bounce 1s ease infinite;
+    border-bottom: 8px rgb(0, 255, 13);
 }
 
 .logo {
-    width: 100px;
+    width: 50px;
     height: auto;
     border-radius: 50%;
-    border: 4px solid #4CAF50;
-    animation: spin 2s linear infinite;
+    border: 2px solid #4CAF50;
+    margin-right: auto;
+    margin-left: 20px;
 }
 
 h1 {
-    font-size: 2rem;
-    margin-bottom: 10px;
+    font-size: 2.5rem;
+    margin-bottom: 20px;
     color: #4CAF50;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    margin-right: auto;
+    margin-left: auto;
 }
 
 h2 {
@@ -133,7 +138,10 @@ span {
     }
     100% {
         transform: scale(1);
-        /* Tambahkan CSS untuk elemen nota */
+    }
+}
+
+/* CSS untuk elemen nota */
 #nota-container {
     margin-top: 20px;
     padding: 20px;
@@ -167,6 +175,4 @@ span {
 .nota-thanks {
     margin-top: 20px;
     font-style: italic;
-}
-    }
 }
