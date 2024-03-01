@@ -166,18 +166,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <p class="jml_harta">Jumlah Harta : <?= $nota["Jumlah Harta"] ?></p>
                     <p class="jml_sumbangan">Jumlah Sumbangan : <?= $nota["Jumlah Sumbangan"] ?></p>
                     <p class="terimakasih"><?= $nota["Ucapan Terimakasih"] ?></p>
-                    <a href="">Clear</a>
+                    <a href="">Kembali</a>
                 <?php elseif ($nota["Jenis Zakat"] == "Emas") : ?>
-                    <p class="jml_harta">Jumlah Harta : <?= $nota["Jumlah Harta"] ?></p>
                     <p class="jml_sumbangan_gr">Jumlah Sumbangan (gr) : <?= $nota["Jumlah Sumbangan (gr)"] ?></p>
                     <p class="jml_sumbangan_gr">Jumlah Sumbangan (Rp) : <?= $nota["Jumlah Sumbangan (Rp.)"] ?></p>
                     <p class="terimakasih"><?= $nota["Ucapan Terimakasih"] ?></p>
-                    <a href="">Clear</a>
+                    <a href="">Kembali</a>
                 <?php else : ?>
                     <p class="jml_harta">Jumlah Harta : <?= $nota["Jumlah Harta"] ?></p>
                     <p class="jml_sumbangan">Jumlah Sumbangan : <?= $nota["Jumlah Sumbangan"] ?></p>
                     <p class="terimakasih"><?= $nota["Ucapan Terimakasih"] ?></p>
-                    <a href="">Clear</a>
+                    <a href="">Kembali</a>
                 <?php endif; ?>
             </div>
         <?php endif; ?>
