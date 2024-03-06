@@ -126,12 +126,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <br>
                 <label for="income-amount">Jumlah Penghasilan:</label>
                 <input type="text" name="income-amount" id="income-amount" placeholder="Masukkan Jumlah Penghasilan Anda" oninput="formatCurrency(this)">
+                <br>
+                <label for="initial-capital">Pengeluaran:</label>
+                <input type="text" name="initial-capital" id="initial-capital" placeholder="Masukkan Jumah Pengeluaran Anda" oninput="formatCurrency(this)">
+                <br>
+                <label for="annual-profit">Pendapatan Lain (Bonus,THR):</label>
+                <input type="text" name="annual-profit" id="annual-profit" placeholder="Opsional" oninput="formatCurrency(this)">
             </div>
 
             <!-- Tabungan -->
             <div id="savings-container" style="display: none;">
                 <label for="savings-amount">Saldo Anda:</label>
                 <input type="text" name="savings-amount" id="savings-amount" placeholder="Masukkan Jumlah Tabungan Anda" oninput="formatCurrency(this)">
+                <br>
+                <label for="annual-profit">Bunga (jika ada):</label>
+                <input type="text" name="annual-profit" id="annual-profit" placeholder="Opsional" oninput="formatCurrency(this)">
             </div>
 
             <!-- Dagangan -->
@@ -141,6 +150,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <br>
                 <label for="annual-profit">Keuntungan Setahun:</label>
                 <input type="text" name="annual-profit" id="annual-profit" placeholder="Masukkan Keuntungan Anda" oninput="formatCurrency(this)">
+                <br>
+                <label for="annual-profit">Kerugian:</label>
+                <input type="text" name="annual-profit" id="annual-profit" placeholder="Opsional" oninput="formatCurrency(this)">
+                <br>
+                <label for="annual-profit">Piutang Dagang:</label>
+                <input type="text" name="annual-profit" id="annual-profit" placeholder="Opsional" oninput="formatCurrency(this)">
+                <br>
+                <label for="annual-profit">Utang Jatuh Tempo:</label>
+                <input type="text" name="annual-profit" id="annual-profit" placeholder="Opsional" oninput="formatCurrency(this)">
             </div>
 
             <!-- Emas -->
@@ -161,26 +179,38 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <?php if (isset($_POST["Submit"])) : ?>
             <div class="nota">
                 <h1>Nota Zakat</h1>
-                <?php if ($nota["Jenis Zakat"] == "Dagangan") : ?>
-                    <p class="modal_awal">Modal Awal : <?= $nota["Modal Awal"] ?></p>
-                    <p class="jml_harta">Jumlah Harta : <?= $nota["Jumlah Harta"] ?></p>
-                    <p class="jml_sumbangan">Jumlah Sumbangan : <?= $nota["Jumlah Sumbangan"] ?></p>
+                <?php if ($nota["Jenis Zakat"] == "Penghasilan") : ?>
+                    <p class="modal_awal">Jumlah Penghasilan : <?= number_format($nota["Jumlah Harta"]) ?></p>
+                    <p class="jml_harta">Pengeluaran : <?= number_format($nota["Pengeluaran"]) ?></p>
+                    <p class="jml_sumbangan">Jumlah Sumbangan : <?= number_format($nota["Jumlah Sumbangan"]) ?></p>
+                    <p class="wajib_bayar"><?= $nota["Wajib Bayar"] ?></p>
+                    <p class="terimakasih"><?= $nota["Ucapan Terimakasih"] ?></p>
+                    <a href="">Kembali</a>
+                <?php elseif ($nota["Jenis Zakat"] == "Dagangan") : ?>
+                    <p class="modal_awal">Modal Awal : <?= number_format($nota["Modal Awal"]) ?></p>
+                    <p class="jml_harta">Jumlah Harta : <?= number_format($nota["Jumlah Harta"]) ?></p>
+                    <p class="jml_sumbangan">Jumlah Sumbangan : <?= number_format($nota["Jumlah Sumbangan"]) ?></p>
+                    <p class="wajib_bayar"><?= $nota["Wajib Bayar"] ?></p>
                     <p class="terimakasih"><?= $nota["Ucapan Terimakasih"] ?></p>
                     <a href="">Kembali</a>
                 <?php elseif ($nota["Jenis Zakat"] == "Emas") : ?>
+                    <p class="jml_harta">Jumlah Harta : <?= $nota["Jumlah Harta"] ?></p>
                     <p class="jml_sumbangan_gr">Jumlah Sumbangan (gr) : <?= $nota["Jumlah Sumbangan (gr)"] ?></p>
-                    <p class="jml_sumbangan_gr">Jumlah Sumbangan (Rp) : <?= $nota["Jumlah Sumbangan (Rp.)"] ?></p>
+                    <p class="jml_sumbangan_gr">Jumlah Sumbangan (Rp) : <?= number_format($nota["Jumlah Sumbangan (Rp.)"]) ?></p>
+                    <p class="wajib_bayar"><?= $nota["Wajib Bayar"] ?></p>
                     <p class="terimakasih"><?= $nota["Ucapan Terimakasih"] ?></p>
                     <a href="">Kembali</a>
                 <?php else : ?>
-                    <p class="jml_harta">Jumlah Harta : <?= $nota["Jumlah Harta"] ?></p>
-                    <p class="jml_sumbangan">Jumlah Sumbangan : <?= $nota["Jumlah Sumbangan"] ?></p>
+                    <p class="jml_harta">Jumlah Harta : <?= number_format($nota["Jumlah Harta"]) ?></p>
+                    <p class="jml_sumbangan">Jumlah Sumbangan : <?= number_format($nota["Jumlah Sumbangan"]) ?></p>
+                    <p class="wajib_bayar"><?= $nota["Wajib Bayar"] ?></p>
                     <p class="terimakasih"><?= $nota["Ucapan Terimakasih"] ?></p>
                     <a href="">Kembali</a>
                 <?php endif; ?>
             </div>
         <?php endif; ?>
     </div>
+    
 </body>
 
 </html>

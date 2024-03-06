@@ -17,6 +17,7 @@ class NotaZakat
                     "Jenis Zakat" => "Penghasilan",
                     "Jumlah Harta" => $jumlahHarta,
                     "Jumlah Sumbangan" => $jumlahSumbangan,
+                    "Wajib Bayar" => "Jika Jumlah Harta Anda Kurang dari Rp. 91,205,000 (Pertahun) atau Rp. 7,600,416 (Perbulan) maka Tidak Wajib Bayar",
                     "Ucapan Terimakasih" => "Terima kasih atas sumbangan Zakat Penghasilan Anda.",
                 ];
                 break;
@@ -27,6 +28,7 @@ class NotaZakat
                     "Jenis Zakat" => "Tabungan",
                     "Jumlah Harta" => $jumlahHarta,
                     "Jumlah Sumbangan" => $jumlahSumbangan,
+                    "Wajib Bayar" => "Jika Jumlah Harta Anda Kurang dari Rp. 91,205,000 maka Tidak Wajib Bayar",
                     "Ucapan Terimakasih" => "Terima kasih atas sumbangan Zakat Tabungan Anda.",
                 ];
                 break;
@@ -41,18 +43,21 @@ class NotaZakat
                     "Modal Awal" => $modalAwal,
                     "Jumlah Harta" => $jumlahHarta,
                     "Jumlah Sumbangan" => $jumlahSumbangan,
+                    "Wajib Bayar" => "Jika Jumlah Harta Anda Kurang dari Rp. 91,205,000 maka Tidak Wajib Bayar",
                     "Ucapan Terimakasih" => "Terima kasih atas sumbangan Zakat Dagangan Anda.",
                 ];
                 break;
 
             case "emas":
-                $jumlahSumbangan = (int) hapusKarakterNonDigit($_POST["gold-amount"]) * 0.025;
+                $jumlahHarta = (int) hapusKarakterNonDigit($_POST["gold-amount"]);
+                $jumlahSumbangan = $jumlahHarta * 0.025;
                 $jumlahSumbanganRp = $jumlahSumbangan * 1104000;
                 $result = [
                     "Jenis Zakat" => "Emas",
-                    "Jumlah Harta" => $jumlahHarta,
+                    "Jumlah Harta" => $jumlahHarta . " gram",
                     "Jumlah Sumbangan (gr)" => $jumlahSumbangan,
                     "Jumlah Sumbangan (Rp.)" => $jumlahSumbanganRp,
+                    "Wajib Bayar" => "Jika Jumlah Emas Anda Kurang dari 85 gram maka Tidak Wajib Bayar",
                     "Ucapan Terimakasih" => "Terima kasih atas sumbangan Zakat Emas Anda.",
                 ];
                 break;
